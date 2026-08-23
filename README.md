@@ -7,17 +7,17 @@ This repository is  my structured learning environment for modern AI backend eng
 
 ## AI Backend Engineer Learning Roadmap
 learning-ai-backend/
-  │
-  ├── Milestone 0 — Engineering foundation
-  ├── Milestone 1 — Local LLM service
-  ├── Milestone 2 — Document ingestion
-  ├── Milestone 3 — Vector retrieval
-  ├── Milestone 4 — Production RAG
-  ├── Milestone 5 — RAG evaluation
-  ├── Milestone 6 — Tool calling + MCP
-  ├── Milestone 7 — Configurable AI assistants
-  ├── Milestone 8 — Security, observability and deployment
-  └── Milestone 9 — Multimodal / agent experimentation
+│
+├── Milestone 0 — Engineering foundation
+├── Milestone 1 — Local LLM service
+├── Milestone 2 — Document ingestion
+├── Milestone 3 — Vector retrieval
+├── Milestone 4 — Production RAG
+├── Milestone 5 — RAG evaluation
+├── Milestone 6 — Tool calling + MCP
+├── Milestone 7 — Configurable AI assistants
+├── Milestone 8 — Security, observability and deployment
+└── Milestone 9 — Multimodal / agent experimentation
 
 # Prequisites
 * Learn from online sources
