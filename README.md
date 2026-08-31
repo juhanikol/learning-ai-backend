@@ -1,6 +1,25 @@
 # learning-ai-backend
 A local-first AI backend for experimenting with retrieval-augmented generation, local LLMs, tool calling and Model Context Protocol.
 
+# Local AI Backend Platform
+
+A local-first AI backend for experimenting with retrieval-augmented
+generation, local LLMs, tool calling and Model Context Protocol.
+
+The project explores production-oriented AI backend architecture including:
+
+- local inference with Ollama
+- document ingestion and chunking
+- PostgreSQL + pgvector
+- semantic and hybrid retrieval
+- RAG with source attribution
+- configurable AI assistants
+- MCP tools and resources
+- retrieval evaluation
+- API testing
+- containerized deployment
+- observability
+
 ## Status
 
 Early development. The project is currently establishing its foundation before implementing other features.
@@ -27,6 +46,95 @@ learning-ai-backend/
 * Learn from online sources
 * Make notes
 * Document ideas and realizations
+
+# AI related consept detailed
+
+Consept detailed according to lessons learned and available technologies.
+
+FOUNDATION
+│
+├── Software engineering practices
+├── Python / HTTP / APIs
+├── Docker / PostgreSQL
+└── Testing / CI
+
+LOCAL AI
+│
+├── Ollama
+├── Local models
+├── Structured outputs
+└── Model abstraction layer
+
+KNOWLEDGE
+│
+├── Document ingestion
+├── Chunking
+├── Embeddings
+├── pgvector
+├── Semantic retrieval
+├── Metadata filtering
+└── Hybrid retrieval
+
+RAG
+│
+├── Context construction
+├── Citations
+├── Reranking
+├── Prompt design
+└── Evaluation
+
+AGENTS
+│
+├── Tool calling
+├── Agent loop
+├── MCP servers
+├── MCP clients
+└── Tool authorization
+
+PLATFORM
+│
+├── Configurable assistants
+├── Knowledge collections
+├── Model selection
+├── Tool permissions
+└── Assistant configuration
+
+PRODUCTION
+│
+├── Security
+├── Observability
+├── Evaluation
+├── CI/CD
+├── Containers
+└── Documentation
+
+EXPERIMENTAL
+│
+├── Vision
+├── Multimodal RAG
+├── Agent memory
+├── Workflow orchestration
+└── Multi-agent experiments
+
+# Preliminary solution structure:
+
+/apps
+    /api
+    /mcp-server
+/packages
+    /rag
+    /ingestion
+    /llm
+    /retrieval
+/tests
+/docs
+    architecture.md
+    decisions/
+    learning-journal/
+    experiments/
+docker-compose.yml
+README.md
+
 
 -- TO BE MOVED TO OTHER DOCS
 # Prequisites - notes
@@ -76,22 +184,4 @@ This time I was also a lucky bastard.
 
 But at least now I understand a little better why I got lucky.
 
-# Preliminary solution structure:
-
-/apps
-    /api
-    /mcp-server
-/packages
-    /rag
-    /ingestion
-    /llm
-    /retrieval
-/tests
-/docs
-    architecture.md
-    decisions/
-    learning-journal/
-    experiments/
-docker-compose.yml
-README.md
 
