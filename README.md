@@ -5,17 +5,17 @@ A local-first AI backend for experimenting with retrieval-augmented generation, 
 
 Looking into a A local-first AI backend for experimenting with retrieval-augmented generation, local LLMs, tool calling and Model Context Protocol. The project explores production-oriented AI backend architecture including:
 
-- local inference with Ollama
-- document ingestion and chunking
-- PostgreSQL + pgvector
-- semantic and hybrid retrieval
-- RAG with source attribution
-- configurable AI assistants
-- MCP tools and resources
-- retrieval evaluation
-- API testing
-- containerized deployment
-- observability
+* local inference with Ollama
+* document ingestion and chunking
+* PostgreSQL + pgvector
+* semantic and hybrid retrieval
+* RAG with source attribution
+* configurable AI assistants
+* MCP tools and resources
+* retrieval evaluation
+* API testing
+* containerized deployment
+* observability
 
 ## Status
 
@@ -28,6 +28,7 @@ This repository is  my structured learning environment for modern AI backend eng
 # Necessary boring details start here (skip if you wish) 
 
 ## AI Backend Engineer Learning Roadmap
+```
 learning-ai-backend/
 │
 ├── Milestone 0 — Engineering foundation
@@ -40,6 +41,7 @@ learning-ai-backend/
 ├── Milestone 7 — Configurable AI assistants
 ├── Milestone 8 — Security, observability and deployment
 └── Milestone 9 — Multimodal / agent experimentation
+```
 
 # Prequisites
 * Learn from online sources
