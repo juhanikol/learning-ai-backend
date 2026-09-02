@@ -51,7 +51,7 @@ learning-ai-backend/
 # AI related consept detailed
 
 Consept detailed according to lessons learned and available technologies.
-
+```
 FOUNDATION
 │
 ├── Software engineering practices
@@ -116,9 +116,11 @@ EXPERIMENTAL
 ├── Agent memory
 ├── Workflow orchestration
 └── Multi-agent experiments
+```
 
 # Preliminary solution structure:
 
+```
 /apps
     /api
     /mcp-server
@@ -135,8 +137,9 @@ EXPERIMENTAL
     experiments/
 docker-compose.yml
 README.md
+```
 
-# Necessary boring details ends here. Below is the story.
+# Necessary boring details ends here. Continue to the story.
 
 -- TO BE MOVED TO OTHER DOCS - maybe?
 
