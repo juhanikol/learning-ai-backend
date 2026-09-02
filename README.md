@@ -1,5 +1,5 @@
 # learning-ai-backend
-A local-first AI backend for experimenting with retrieval-augmented generation, local LLMs, tool calling and Model Context Protocol.
+Learning experiences and path to a local-first AI backend for experimenting with retrieval-augmented generation, local LLMs, tool calling and Model Context Protocol.
 
 # Local AI Backend Platform
 
