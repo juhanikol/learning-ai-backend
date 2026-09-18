@@ -355,3 +355,84 @@ Three fairly different experiences. Same lesson:
 
 Which is inconvenient. Reality has terrible documentation.
 
+# Notes - continued... apparently reality called back
+
+(For reference: Savonia is Finnish University of Applied Sciences)
+
+For the last couple of weeks I have been trying to find out whether this idea survives outside my laptop. That has meant emails, phone calls, meetings and explaining the same basic idea from slightly different angles: local AI, manufacturing data, controlled access, RAG, MCP, company systems, and the slightly inconvenient requirement that all of this should solve an actual problem.
+
+I have spoken with manufacturing companies and other potential partners about both my engineering thesis and the broader local-AI concept I have been developing. And the result was useful. But not in the way I originally hoped. I did not walk away with a customer contract. I did not find a company that immediately said: "Yes, wonderful. Please connect an experimental local AI architecture to our production systems." Which, now that I write it down, may actually be a fairly reasonable reaction.
+
+What I did get was something almost as valuable at this stage: "information."
+
+## Companies are not waiting for AI to arrive
+
+One thing became clear quite quickly. Manufacturing companies are already experimenting with AI. Some have Copilot-based solutions. Some are testing internal assistants. Some have small local experiments. Some have people inside the company who understand these technologies surprisingly well.
+
+So I was not arriving with fire to a village that had never seen it before. That was useful to learn. At the same time, the discussions also showed that the problems are still very real. The existing experiments do not necessarily solve controlled access to engineering knowledge, production information, local inference, fine-grained authorization, integration with existing enterprise systems or the question of how AI should safely interact with company data.
+
+In other words, there was interest. There were relevant problems. There were even overlapping ideas. But interest is not the same thing as a partnership. And a good technical discussion is definitely not the same thing as a purchase order. Apparently sales has APIs too, but nobody has published the documentation.
+
+## Meanwhile, I also need to finish an engineering thesis
+
+There is another practical reason why I have been pushing this forward now. I am finishing my Production Engineering degree at Savonia University of Applied Sciences, and the engineering thesis is the largest remaining piece. So there is an obvious opportunity here.
+
+Instead of inventing an artificial academic topic and then returning to this project afterwards, I would much rather use the thesis to investigate the same real questions I have already been working on:
+
+* Can local generative AI be useful in manufacturing?
+* What information should it be allowed to access?
+* How should existing company systems and permissions be respected?
+* Can RAG and controlled tools make company knowledge useful without simply exposing everything to the model?
+* And most importantly: does any of this actually help the people doing the work?
+
+However there is clear distinction. **This local-AI work started as my own independent learning and development project before the thesis collaboration described below.**
+
+The thesis and the collaboration are now an opportunity to validate, challenge and refine the ideas against real manufacturing problems. They are not where the underlying project originally came from.  That distinction matters to me, especially as the work may eventually lead in several different directions. Research, open-source development, further product development or perhaps even something commercial later.
+
+Any work created specifically for the collaborative project will of course need to follow the agreed project, licensing and publication terms. Keeping those boundaries clear from the beginning seems considerably easier than trying to reconstruct them six months later from Git commit timestamps and old Teams messages.
+
+I have learned enough about engineering projects to know how that story ends.
+
+## And then something finally moved
+
+After several discussions that produced knowledge but no actual collaboration, I had another meeting at Savonia. This one went differently. Very differently. Savonia is involved in the **SIX ManuGenius** project together with partners including **Tampere University**. The project works around digitalisation, data and new technologies in manufacturing. 
+
+We started discussing the challenges the project and its participating companies are seeing around manufacturing quality information. And suddenly there was an actual problem in front of us. One recurring issue is the quality of quality data itself.
+
+Manufacturing workers and machinists may notice a deviation immediately, but the information recorded about it can be incomplete, inconsistent or too vague for later analysis. The company may already have classifications, templates, ERP data and other structured information available, yet the final quality record can still depend heavily on what somebody has time to type while doing their actual job.
+
+That is a much better AI problem than: "Where could we put a chatbot?" Now we have users. We have existing company data. We have a process. We have a measurable information-quality problem. And we have a very important constraint:
+
+**the AI should reduce the effort required from the operator, not create another form they hate filling in.**
+
+That discussion quickly opened several interesting directions. Could the system understand a short natural-language description of a manufacturing defect? Could it retrieve the relevant product, process or quality context from company data? Could it recognize what information is still missing? Could it generate or adapt the questions shown to the operator based on the actual situation? Could the operator verify the structured result before anything is stored? And could all of this run locally, using an architecture that can later be connected to real company systems through controlled interfaces?
+
+Now we are talking.
+
+## The small breakthrough
+
+The outcome of the meeting was that Savonia agreed to bring my thesis work into collaboration with the SIX ManuGenius project.
+
+The intention is to investigate and develop a local AI model or demonstrator in the spirit of the project. If the work develops in the right direction, parts of it could later be demonstrated and potentially shared as open source under separately agreed project and licensing terms.
+
+For me, this changes quite a lot. Until now I have mostly been building the architecture, experimenting with technologies and then trying to find people willing to challenge the assumptions. Now I potentially have a much better path toward exactly what I have been missing: **Real manufacturing problems and people who actually understand them.**
+
+Even more interestingly, ManuGenius already works with manufacturing companies. So instead of me sending another carefully worded email beginning with: "Hello, I am working on an experimental local AI architecture..." there may now be opportunities to discuss the solution through an existing research and industry collaboration network. That is a very different starting position.
+
+## There is, naturally, one small problem
+
+Time - Of course there is. I am currently writing the theoretical part of the thesis and turning all of these ideas into an actual project plan. Architecture needs to be defined. The research scope needs to remain small enough that the thesis does not accidentally become a five-year industrial AI programme. The prototype needs to demonstrate something meaningful. The evaluation needs to measure something more useful than: "It answered the question and looked quite impressive."
+
+And there is already a possibility that the first opportunity to present something to companies connected to the project could happen around the middle of October. Which is soon. Very soon. So the current status of the project can probably be summarized as: **Great news: I finally found the collaboration I was looking for.**
+
+Slightly less great news: **now I actually have to build the thing.**
+
+## The next experiment is no longer only technical
+
+This is probably the most exciting stage of the project so far. The local prototype taught me about models, context windows, tool definitions and the surprising amount of damage that 21.5 kB of unnecessary JSON can do to an old CPU. The company discussions taught me about confidentiality, access control, contracts and the difference between technical possibility and organisational reality.
+
+Now the next phase adds another question: **Can the architecture be useful enough that a manufacturing company would actually want to use it?** That is a much harder benchmark than tokens per second. And a much more interesting one. The next few weeks will probably involve research papers, architecture diagrams, code, manufacturing quality models, local LLMs, RAG, MCP, structured outputs, adaptive interfaces and quite a lot of coffee.
+
+For once, however, all of those things are starting to point toward the same problem.
+
+That feels like progress.
