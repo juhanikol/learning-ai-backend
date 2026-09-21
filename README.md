@@ -436,3 +436,84 @@ Now the next phase adds another question: **Can the architecture be useful enoug
 For once, however, all of those things are starting to point toward the same problem.
 
 That feels like progress.
+
+# Notes - continued... Windows has entered the chat
+
+The last few days have been a strange combination of software architecture, thesis planning, licensing questions and discovering that I apparently know absolutely nothing about developing software on Windows. Which is slightly embarrassing considering how many years I have been developing software on Windows computers. There is, however, an important distinction between: developing software that runs on Windows & actually building a native development environment on Windows from scratch.
+
+Apparently I had mostly managed to avoid the second one. Until now.
+
+## First, the boring problem became the difficult problem
+
+Before writing more code, I had to figure out something much less exciting:
+
+**What exactly belongs where?**
+
+My local-AI work existed before the thesis collaboration. At the same time, part of that work may now be developed further through my engineering thesis and in collaboration with Savonia and SIX ManuGenius. That creates a surprisingly important architectural problem that has very little to do with software architecture. If I simply copy the existing repository into another repository and continue developing both, I immediately create several questions:
+
+* Which implementation came first?
+* Which parts belong to my original project?
+* Which parts were created specifically for the thesis?
+* Which parts may later be published as open source?
+* What happens if both repositories evolve in parallel?
+* Can I later reuse the same ideas or implementations in another product?
+* And how many almost-identical repositories does one person need before Git becomes less of a version control system and more of an archaeological excavation?
+
+So before doing the technically interesting work, I spent quite a lot of time thinking about repository boundaries, licensing, ownership, thesis deliverables and how to avoid creating unnecessary copyright problems for my future self. This turned out to be much harder than I expected. The current direction is becoming clearer: keep the underlying project history clear, identify what belongs to the thesis collaboration, separate delivery-specific components where necessary and avoid creating two independently evolving copies of the same application unless there is a very good reason to do so.
+
+In other words: **Do not solve a legal boundary problem by creating a maintenance nightmare.**
+
+That sounds obvious now. It did not feel obvious after several hours of drawing imaginary repository trees in my head.
+
+## Then I tried to make an actual thesis plan
+
+Surely this part would be easier. I already have a topic.  I have a prototype. I have a collaboration context. I have a manufacturing problem. I even have an increasingly large collection of research papers. All I need is a project plan. How difficult could that be? Quite difficult, apparently.
+
+The problem is that almost every interesting question opens three more interesting questions. Local models lead to hardware requirements. Hardware requirements lead to deployment architecture. Deployment architecture leads to Windows support. Windows support leads to authentication and enterprise environments. RAG leads to permissions. Permissions lead to identity management. MCP leads to tool authorization. Quality data leads to adaptive interfaces, structured outputs, ERP integration and human verification. And suddenly a perfectly reasonable engineering thesis starts looking suspiciously like the preliminary architecture for an enterprise AI platform. Again. I noticed that similar pattern again - because of my complicated thinking So I have been forcing myself to separate two things: **what the larger architecture could eventually become** and **what I actually need to prove during the thesis.** Those are not the same thing. This may be the single most difficult part of the thesis so far. Not implementation but the scope.
+
+## And then came Windows
+
+One practical requirement became increasingly obvious. If this work is going to be demonstrated to companies, an installation procedure that starts with:
+
+> First install WSL2, then Docker, then configure Linux networking, then...
+
+is not necessarily the friendliest introduction to local AI. A native Windows deployment would make much more sense for many of the companies I am targeting. So I decided to start migrating the deployment toward Windows. This was uncomfortable immediately. Linux and WSL have become my natural development environment. I know where things are. I know how packages behave. I know what the shell is doing. I know roughly which command I need when something breaks. On Windows I suddenly felt like I had been transported into somebody else's workshop. I knew what I wanted to build. I just did not know where they kept the screwdrivers. Basic questions became annoyingly non-basic.
+
+Which compiler toolchain do I need? Which CMake? Which shell should I run this from? Where should the SDK be installed? Which environment variables should exist? Which build generator am I actually using? Is this command failing because the library is missing, because the path is wrong, because PowerShell interpreted something differently, or because Windows simply sensed uncertainty? It was tiring.
+
+And then I reached `llama.cpp`.
+
+## Surely installing llama.cpp cannot be that difficult
+
+Narrator: It could.
+
+The goal was simple enough.
+
+I wanted native local inference on Windows with GPU acceleration through Vulkan. That meant getting the Windows build environment working, installing the Vulkan SDK, configuring CMake correctly and building `llama.cpp` with Vulkan support. Somewhere along the way I learned that there is a special kind of uncertainty created by watching a compiler build something for twenty minutes without knowing whether it is:
+
+1. working perfectly,
+2. hopelessly stuck,
+3. about to fail,
+4. or quietly converting your laptop into a space heater.
+
+Mine took around **20 minutes**. At several points I was convinced something had gone wrong. But stopping a build at minute nineteen because it *looks suspicious* is also a very efficient way of guaranteeing that the build will never finish. So I waited. And eventually... It finished. That alone felt like progress.
+
+## Now I only needed a model
+
+Which sounds easy. Go to Hugging Face. Search for a model. Download it. Done.
+
+Except that "a model" is not a particularly useful search criterion anymore. Even after narrowing things down to **GGUF** models suitable for `llama.cpp`, there were still hundreds of possibilities. Different model families. Different parameter counts. Different quantizations. Different context sizes. Different instruction-tuned variants. Different publishers. Different conversions. Q2, Q3, Q4 Q5, Q6, Q8... At some point model selection started to feel less like machine learning and more like ordering coffee in a country where I do not speak the language.
+
+I did not need the smartest model available. I needed something small enough to test the architecture properly. Something that would fit comfortably into the available GPU memory. Something that could actually demonstrate whether Vulkan acceleration was working. Eventually I settled on a small **Llama 3.2 1B Instruct model using Q4_K_M quantization**. Not glamorous. Not enormous. Not something that is going to solve general intelligence before lunch. Just perfect for small testing.
+
+## And then the GPU actually answered
+
+I started the model from the CLI. The Vulkan backend initialized. The model loaded. Part of me was still expecting another error message. Instead, I entered a prompt. And it answered **Fast**. Not "maybe slightly faster if I measure this carefully with a benchmark" fast. Visibly fast. The same class of small local-model experiments that had previously crawled along on CPU-only inference inside WSL were suddenly responding at roughly **ten times the speed**. I actually got chills. That sounds ridiculous when the technical achievement is reduced to one sentence: *I successfully ran a tiny quantized language model using Vulkan GPU acceleration.*
+
+But the sentence leaves out the hours before it. The unfamiliar Windows environment. The toolchain setup. The Vulkan problems. The CMake configuration. The model hunting. The uncertainty during the build. The repeated feeling that I had probably misunderstood something fundamental. And then suddenly the tokens started appearing on the screen. Quickly. For perhaps thirty seconds I was disproportionately happy about a 1-billion-parameter language model answering me in a command-line window. **And I regret nothing.**
+
+## A surprisingly important little victory
+
+This experiment was not really about Llama 3.2. And it was not really about Vulkan either. The important result was that another assumption behind the larger project became more realistic. A local AI solution for manufacturing does not necessarily need a large GPU server just to become useful. A relatively modest Windows workstation with an older professional GPU can already run a small quantized model at a speed that feels completely different from CPU-only inference. That does not mean the architecture is solved. Far from it. There are still models to compare. There is still RAG, MCP, Authorization, Company data, Deployment Quality-data workflows, Adaptive interfaces and Evaluation. And an engineering thesis that continues to resist all attempts to become small and simple. But this time I have one more piece working. Native Windows `llama.cpp` Vulkan driver with GPU inference. Ten times faster than what I was staring at before. Sometimes progress in software engineering is a beautifully designed architecture. Sometimes it is a research result. And sometimes it is sitting alone in front of a terminal at night thinking: **HOLY SHIT, IT IS ACTUALLY USING THE GPU.** 
+
+It is 2AM now. I will take the win.
