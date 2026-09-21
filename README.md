@@ -517,3 +517,54 @@ But the sentence leaves out the hours before it. The unfamiliar Windows environm
 This experiment was not really about Llama 3.2. And it was not really about Vulkan either. The important result was that another assumption behind the larger project became more realistic. A local AI solution for manufacturing does not necessarily need a large GPU server just to become useful. A relatively modest Windows workstation with an older professional GPU can already run a small quantized model at a speed that feels completely different from CPU-only inference. That does not mean the architecture is solved. Far from it. There are still models to compare. There is still RAG, MCP, Authorization, Company data, Deployment Quality-data workflows, Adaptive interfaces and Evaluation. And an engineering thesis that continues to resist all attempts to become small and simple. But this time I have one more piece working. Native Windows `llama.cpp` Vulkan driver with GPU inference. Ten times faster than what I was staring at before. Sometimes progress in software engineering is a beautifully designed architecture. Sometimes it is a research result. And sometimes it is sitting alone in front of a terminal at night thinking: **HOLY SHIT, IT IS ACTUALLY USING THE GPU.** 
 
 It is 2AM now. I will take the win.
+
+## Another lesson hiding behind the successful build
+
+Getting Vulkan inference working also exposed a much more important problem. Until now I had mostly thought about deployment as: 
+
+> Install the components, select a model, start the services.
+
+That is probably too naive for a local AI platform. The machine itself needs to become part of the configuration process. My laptop is a good example. It has hybrid graphics: an integrated GPU and a discrete GPU. I initially assumed that enabling the Vulkan backend would be enough for `llama.cpp` to use the correct device. It was not. The discrete GPU was not Vulkan device 0. Before launching the model I first had to inspect which Vulkan devices `llama.cpp` could actually see. The discrete GPU was exposed as `Vulkan1`, so I had to explicitly start inference with: `--device Vulkan1`
+
+Without that step, a perfectly valid Vulkan configuration could still have selected the wrong GPU. This is not some strange laboratory configuration either. Hybrid graphics are extremely common in laptops. So an installer cannot safely assume:
+
+> GPU 0 = the GPU we want.
+
+It needs to discover the actual hardware. And that realization opens a much bigger question: **Should installation itself perform hardware profiling and generate the initial AI configuration?** I think the answer is yes. A local AI installer should probably inspect at least:
+
+* available CPU resources
+* total system memory
+* available inference backends
+* all visible GPUs
+* dedicated and shared GPU memory
+* the actual device identifiers exposed by the inference runtime
+* available storage
+* possibly memory bandwidth and basic inference performance
+
+Then it should choose a conservative starting configuration. That could include:
+
+* which inference backend to use
+* which GPU device to target
+* how much of the model can safely be offloaded to the GPU
+* suitable model size
+* suitable quantization
+* context-window limits
+* how much memory must be left for the operating system and other applications
+* how many tools should be exposed to the model
+* which optional services should be enabled
+
+This connects surprisingly well to the earlier lesson about Open WebUI sending 34 unnecessary tool definitions. Performance is not only about selecting a faster model or GPU. It is the result of the whole runtime configuration. A machine with limited resources might perform perfectly well with:
+
+* a smaller quantized model
+* fewer GPU-offloaded layers
+* a smaller context window
+* fewer tools
+* fewer background services
+
+while the exact same machine could become almost unusable with an overly ambitious default configuration. So perhaps installation should not really be an installer. It should be a **hardware-aware configuration process**. And if the hardware simply cannot support a useful experience, the correct answer may occasionally be:
+
+> No. This machine should not run this configuration.
+
+That is considerably better than successfully installing software that makes the computer unusable.
+
+
