@@ -567,4 +567,15 @@ while the exact same machine could become almost unusable with an overly ambitio
 
 That is considerably better than successfully installing software that makes the computer unusable.
 
+# NOTES - Continuing experiments
+
+The prototype architecture has now changed twice. The original plan involved local RAG, MCP, controlled access to company information and enough future possibilities to keep me occupied well beyond graduation. Unfortunately, the thesis has a deadline. My laptop also has opinions. The first change moved the project toward a Windows workstation application. AnythingLLM looked like a useful starting point: an existing interface, local inference and less UI development for me. The plan was to connect the necessary pieces and concentrate on the manufacturing use case.
+
+Then I started defining what “the necessary pieces” actually meant. The operator should describe a deviation. The model should extract information, suggest a classification and priority, ask about anything important that is missing, and produce a structured proposal. The operator should then correct and approve it before saving. A reasonable workflow. Somehow, every reasonable requirement seemed to introduce another integration point. Meanwhile, my GPU continued to offer exactly **2 GB of VRAM**, regardless of how convincing my architecture diagrams became.
+
+So I changed direction again.
+
+The prototype will now use **llama.cpp, llama-server and a modified version of its own web UI**. I already have local inference working on my machine. The next step is to extend that interface with a deviation-recording button and an editable panel beside the normal chat. The model returns structured data. The interface turns it into fields a person can actually read and correct. IDs, timestamps and other known background information are added by the application. The model does not need to spend its limited resources rediscovering which workstation it is sitting next to. A small Go service will save the approved ticket as JSON. Yes, simplifying the architecture still involves writing another small program. Apparently there are limits to my personal development. Another useful discovery: valid JSON does not mean correct information. A model can produce a beautifully formatted, completely wrong answer. Brackets are not evidence. Classification rules, missing information and human approval still matter. The model experiments so far have helped me find workable configurations and compare Finnish-language output. They have not yet been a controlled evaluation. That comes once the actual task context is ready, using at least two models and the same test cases. 
+
+Finnish dictation and the complete workflow must also work offline. The immediate goal is now much narrower: **build the prototype and find out whether it is useful on this hardware.** If it works, I have something worth demonstrating. If it is too slow, makes too many mistakes or leaves the operator doing all the work anyway, I have a result worth documenting. Either way, the laptop finally gets a vote. So far, it has been voting against additional architecture.
 
